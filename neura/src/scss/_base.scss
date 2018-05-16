@@ -1,0 +1,118 @@
+::selection {
+	background: $primaryColor;
+	color: $secondaryColor;
+}
+
+::-moz-selection {
+	background: $primaryColor;
+	color: $secondaryColor;
+}
+
+::-webkit-selection {
+	background: $primaryColor;
+	color: $secondaryColor;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: $main-font-family;
+}
+
+html {
+	background: $secondaryColor;
+	font-size: 14px;
+}
+
+body {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+
+	color: $primaryColor;
+}
+
+main {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+
+	margin-bottom: 3rem;
+	width: 50vw;
+}
+
+.template {
+	display: none !important;
+}
+
+img {
+	border-radius: 100%;
+	-moz-border-radius: 100%;
+	-ms-border-radius: 100%;
+	-o-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	margin: 0 auto;
+	width: 150px;
+}
+
+h1, h2, h3, h4 {
+	margin: 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+h1 {
+	font-size: 40px;
+}
+
+h2 {
+	font-size: 32px;
+}
+
+h3 {
+	font-size: 24px;
+}
+
+h4 {
+	font-size: 18px;
+}
+
+hr {
+	border: 1px solid $primaryColor;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	margin: 0;
+}
+
+input, textarea, button, select {
+	background: none;
+	border: 2px solid $primaryColor;
+	color: $primaryColor;
+	text-align: center;
+}
+
+input[type="range"] {
+	border: none;
+}
+
+input[type="button"], button {
+	cursor: pointer;
+	display: inline-block;
+	margin-bottom: 0.25rem;
+	transition: all 300ms;
+
+	&:hover {
+		background: $primaryColor;
+		color: $secondaryColor;
+	}
+}
+
+.hidden {
+	display: none !important;
+}

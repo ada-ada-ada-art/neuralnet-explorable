@@ -1,0 +1,27 @@
+.nn-container {
+	align-items: center;
+	border: 3px solid $primaryColor;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+}
+
+.nn-layer {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: row wrap;
+}
+
+.nn-node {
+	align-items: center;
+	background: $primaryColor;
+	border-radius: 100%;
+	color: $paleWhite;
+	display: flex;
+	font-size: 0.8rem;
+	height: 50px;
+	justify-content: center;
+	margin: 25px;
+	width: 50px;
+}

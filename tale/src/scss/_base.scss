@@ -1,0 +1,51 @@
+::selection {
+	background: $primary;
+	color: $light;
+}
+
+::-moz-selection {
+	background: $primary;
+	color: $light;
+}
+
+::-webkit-selection {
+	background: $primary;
+	color: $light;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+}
+
+.hidden {
+	display: none !important;
+}
+
+main {
+	display: flex;
+	flex-flow: row nowrap;
+
+	height: $mainHeight;
+	left: 0;
+	position: relative;
+	width: 100%;
+}
+
+.main-interface, .chat-interface {
+	height: 100%;
+}
+
+.chat-interface {
+	border-left: 1rem solid $dark;
+	width: $chatWidth;
+}
+
+.single-number img {
+	filter: invert(100%);
+}

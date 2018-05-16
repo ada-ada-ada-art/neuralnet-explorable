@@ -1,0 +1,1 @@
+function shuffle(n){var t,o,a;for(a=n.length-1;a>0;a--)t=Math.floor(Math.random()*(a+1)),o=n[a],n[a]=n[t],n[t]=o;return n}function emptyFunction(){}function callbackHelper(n,t){n.apply(this,t)}function getRandom(n,t){return Math.floor(Math.random()*(t-n))+n}

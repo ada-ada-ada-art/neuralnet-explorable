@@ -1,0 +1,38 @@
+.nn-form {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: row wrap;
+
+	h2, h3, h4 {
+		flex: 100%;
+	}
+}
+
+.nn-color-form-container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+
+	&:not(:last-of-type) {
+		margin-right: 1rem;
+	}
+}
+
+.nn-weight-forms {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: row wrap;
+}
+
+.nn-weight-form-container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+	&:not(:last-of-type) {
+		margin-right: 1rem;
+	}
+}

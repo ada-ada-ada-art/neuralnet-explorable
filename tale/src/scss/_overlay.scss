@@ -1,0 +1,60 @@
+.overlay-interface {
+	background: $light;
+
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+		
+	left: 0;
+	height: $mainHeight;
+	position: fixed;
+	top: 0;
+	width: $mainWidth;
+	z-index: 20;
+
+	.progress {
+		height: 5vh;
+		width: $mainWidth / 1.5;
+	}
+	.progress-bar {
+		font-size: 1.25rem;
+		width: 0%;
+	}
+}
+
+.full-overlay {
+	background: $light;
+
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+
+	left: 0;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	z-index: 999;
+
+	p {
+		width: 50vw;
+	}
+
+	h2 {
+		margin-bottom: 2rem;
+		text-align: center;
+		position: relative;
+
+		&::after {
+			background: $primary;
+			bottom: -1rem;
+			content: "";
+			left: 0;
+			height: 2px;
+			position: absolute;
+			width: 100%;
+		}
+	}
+}

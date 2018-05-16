@@ -1,0 +1,22 @@
+.pending {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+
+	border: 2px dashed $secondary;
+	border-radius: $pendingWidth;
+	height: $pendingWidth;
+	width: $pendingWidth;
+}
+
+.show-augusta .pending {
+	background-image: url('/dist/img/smile.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: $pendingWidth / 2;
+}
+
+.sandbox .pending {
+	cursor: pointer;
+}

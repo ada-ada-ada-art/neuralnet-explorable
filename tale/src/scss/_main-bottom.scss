@@ -1,0 +1,105 @@
+.sort-container {
+	align-items: center;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	
+	background: $primary;
+	height: $sortHeight;
+	width: $sortWidth;
+}
+
+.sorter {
+	align-items: space-between;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+
+	border: 2px dashed $light;
+	color: $light;
+	height: $sortWidth / 9;
+	margin: $sortMargin;
+	position: relative;
+	width: $sortWidth / 9;
+
+	&:nth-child(6), &:first-child {
+		margin-left: 0;
+	}
+
+	&:nth-child(5), &:nth-child(10) {
+		margin-right: 0;
+	}
+
+	.sort-label {
+		align-items: flex-end;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+
+		top: 100%;
+		// height: calc(#{$sortWidth / 9} - 4px);
+		position: absolute;
+		text-align: center;
+		width: calc(#{$sortWidth / 9} - 4px);
+		z-index: 0;
+	}
+
+	.number-container {
+		left: 1vw;
+		top: 1vw;
+		z-index: 1;
+	}
+}
+
+.button-top, .button-bottom {
+	background: $primary;
+	border-color: $primary;
+	border-style: solid;
+	border-width: 1px 1px 0 1px;
+	border-radius: 5px 5px 0 0;
+}
+
+.button-top {
+	align-items: center;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	
+	padding: .5rem 1rem;
+	width: $buttonWidth * 2.5;
+}
+
+.augusta-button {
+	width: $buttonWidth;
+}
+
+.button-top .side-btn {
+	width: $buttonWidth / 2;
+}
+
+.augusta-button {
+	align-items: center;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+.augusta-range {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+
+	width: $buttonWidth * 3;
+
+	input[type="range"] {
+		width: $buttonWidth * 2.5;
+	}
+
+	label span {
+		display: none;
+	}
+}
+
+.sandbox .augusta-range label span {
+	display: inline;
+}

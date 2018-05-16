@@ -1,0 +1,32 @@
+{
+  "name": "neural-network-explorable-explanation",
+  "version": "0.0.1",
+  "description": "Neural Network Explorable Explanation",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "jepster-dk",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.1",
+    "bootstrap-material-design": "^4.1.1",
+    "express": "^4.16.2",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "nodemon": "^1.17.3",
+    "p5": "^0.6.0",
+    "popper.js": "^1.14.3",
+    "seedrandom": "^2.4.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-minify": "^2.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^3.2.0",
+    "gulp-sass": "^3.2.1"
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Neural Network Explorable Explanation</title>
+	<!-- STYLE -->
+	<link rel="stylesheet" href="/visualized/dist/css/main.css">
+
+	<!-- SCRIPTS -->
+	<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/visualized/dist/js/index-min.js"></script>
+    
+</head>
+<body>
+	<main id="app">
+		<h1>Neural Network Explorable Explanation</h1>
+		<section class="nn-container">
+			<div class="nn-inputs nn-layer">
+				<span class="nn-node nn-input template" id="nn-node-i1">XYZ</span>
+			</div>
+			<div class="nn-hiddens nn-layer"></div>
+			<div class="nn-outputs nn-layer"></div>
+		</section>
+		<section class="nn-form">
+			<h3>Weights</h3>
+			<h4>Input data</h4>
+			<div class="nn-weight-forms nn-input-data">
+				
+			</div>
+			<h4>Input weights</h4>
+			<div class="nn-weight-forms nn-input-weights">
+				<div class="nn-weight-form-container template">
+					<label for="nn-w-1-form">W</label>
+					<input type="range" id="nn-w-1-form" min="-2" max="2" value="0" step="0.001">
+				</div>
+			</div>
+			<h4>Hidden weights</h4>
+			<div class="nn-weight-forms nn-hidden-weights">
+				
+			</div>
+		</section>
+	</main>
+</body>
+</html>

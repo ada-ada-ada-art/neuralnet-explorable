@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Neural Network Dog Analogy</title>
+	<!-- STYLE -->
+	<link rel="stylesheet" href="/visualized/dist/css/main.css">
+
+	<!-- SCRIPTS -->
+	<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/node_modules/p5/lib/p5.min.js"></script>
+	<script type="text/javascript" src="/visualized/dist/js/p5.collide2D/p5.collide2d.min.js"></script>
+	<script type="text/javascript" src="/visualized/dist/js/index.js"></script>
+    
+</head>
+<body>
+	<main id="app">
+		<section class="active page-0">
+			<h1>Neura<br>The World's Dumbest Dog<hr></h1>
+			<p>So you wanna know how Neural Networks work, but you don't want all the math? You've come to the right place. First, I want you to meet Neura. She's the world's dumbest dog. Particularly, she's not very good at walking on a path. She follows a simple set of rules:</p>
+			<ul>
+				<li>She walks straight ahead.</li>
+				<li>If she's off the path, she turns towards it.</li>
+				<li>And forever and forever.</li>
+			</ul>
+			<p>Try releasing her and see how that works out for her.</p>
+			<div id="intro-sketch-holder" class="sketch-container" data-sketch-id="0"></div>
+			<button class="play-sketch">Release Neura</button>
+			<p>Oh, and at certain points during this game, there will be special links that tell you more about how aspects of the game translates to real neural networks terms. But those are totally optional.</p>
+			<div class="button-container">
+				<button class="home-button">Home</button>
+				<button class="next-button">Next</button>
+			</div>
+		</section>
+		<section class="page-1">
+			<h1>Intro to turning angles<hr></h1>
+			<p>Right now, Neura is just using a specific angle to turn by. But if we want her to stay on the path as much as possible, we could try to help her by deciding her angle for her. You should try messing with that slider, and see if you can find the best angle for her.</p>
+			<div id="first-sketch-holder" class="sketch-container" data-sketch-id="1"></div>
+			<div class="range-container">
+				<span></span>
+				<input type="range" class="sketch-holder-range" min="0" max="3" step="0.05" value="1.5">
+			</div>
+			<button class="play-sketch">Release Neura</button>
+			<div class="button-container">
+				<button class="previous-button">Previous</button>
+				<button class="next-button">Next</button>
+			</div>
+		</section>
+		<section class="page-2">
+			<h1>Intro to self-training<hr></h1>
+			<p>You know what would be great though? If Neura could train herself. That way, we would have time for all kinds of other things. The question: how do we do that?</p>
+			<p>Well, since Neura is a very patient dog, we could release her for a walk, and tell her to slightly change the angle after each time.</p>
+			<p>Try releasing her, and see how she does.</p>
+			<div id="second-sketch-holder" class="sketch-container" data-sketch-id="2"></div>
+			<div class="angle-container">Neura is currently turning by <input class="angle" type="text" disabled value="1.5"></input> degrees</div>
+			<button class="play-sketch">Release Neura</button>
+			<div class="button-container">
+				<button class="previous-button">Previous</button>
+				<button class="next-button">Next</button>
+			</div>
+			<!--<div class="all-score-container">
+				<div class="score-container">Time on path: <span>0</span></div>
+				<div class="highscore-container">Longest time on path so far: <span>0</span></div>
+			</div>-->
+		</section>
+		<section class="page-3">
+			<h1>Getting more efficient at self-training<hr></h1>
+			<p>Okay, well that was boring to watch. Maybe it works better, if we allow Neura a bit more freedom in teaching herself? Let's try working with how much she can change her turning angle. Try tweaking it, and let her loose!</p>
+			<div id="third-sketch-holder" class="sketch-container" data-sketch-id="3"></div>
+			<div class="range-container">
+				<span></span>
+				<input type="range" class="sketch-holder-range" min="0.001" max="0.05" step="0.0001" value="0.025">
+			</div>
+			<div class="angle-container">Neura is currently turning by <input class="angle" type="text" disabled value="1.5"></input> degrees</div>
+			<button class="play-sketch">Release Neura</button>
+			<div class="button-container">
+				<button class="previous-button">Previous</button>
+				<button class="next-button">Next</button>
+			</div>
+			<!--<div class="all-score-container">
+				<div class="score-container">Time on path: <span>0</span></div>
+				<div class="highscore-container">Longest time on path so far: <span>0</span></div>
+			</div>-->
+		</section>
+		<section class="page-4">
+			<h1>Intro to training itself<hr></h1>
+			<p>It seems Neura has definitely become quicker at improving herself, but she doesn't seem to know if it's better to increase or decrease the angle. We can help her by telling her how far away from the path she is, and then having her decide whether she is getting better or worse.</p>
+			<div id="fourth-sketch-holder" class="sketch-container" data-sketch-id="4"></div>
+			<div class="range-container">
+				<span></span>
+				<input type="range" class="sketch-holder-range" min="0.001" max="0.05" step="0.0001" value="0.025">
+			</div>
+			<div class="angle-container">Neura is currently turning by <input class="angle" type="text" disabled value="1.5"></input> degrees</div>
+			Neura is moving <span class="moving"></span>
+			<button class="play-sketch">Release Neura</button>
+			<div class="button-container">
+				<button class="previous-button">Previous</button>
+				<!--<button class="next-button">Next</button>-->
+			</div>
+			<div class="all-score-container">
+				<div class="score-container">Distance from path: <span>0</span></div>
+				<div class="highscore-container">Longest time on path so far: <span>0</span></div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

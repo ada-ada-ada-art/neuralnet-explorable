@@ -1,0 +1,63 @@
+#app > section {
+	display: none;
+
+	&.active {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		flex-flow: column wrap;
+	}
+
+	.button-container {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		flex-flow: column no-wrap;
+
+		position: fixed;
+		bottom: 0;
+		left: 0;
+
+		button {
+			height: 2rem;
+			margin-bottom: 0;
+			position: relative;
+			width: 50vw;
+
+			&:first-child {
+				bottom: 0;
+				left: 0;
+			}
+
+			&:last-child {
+				bottom: 0;
+				left: 0;
+			}
+		}
+
+		input:not(:last-child), button:not(:last-child) {
+			margin-right: 0.5rem;
+		}
+
+		.home-button {
+			background: $primaryColor;
+			color: $secondaryColor;
+		}
+	}
+
+	.angle-container {
+		margin-bottom: 1rem;
+
+		input {
+			min-width: 3rem;
+			width: auto;
+		}
+	}
+
+	.range-container {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		flex-flow: column wrap;		
+	}
+}

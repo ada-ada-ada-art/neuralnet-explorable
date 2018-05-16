@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>A Tale of 70.000 Numbers - An Explorable Explanation of Neural Networks</title>
+  <!-- STYLE -->
+  <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/visualized/dist/css/main.css">
+</head>
+<body>
+  <main id="app">
+    <section class="intro-overlay-interface full-overlay">
+      <h2>A Tale of 70.000 Numbers</h2>
+      <p>There once was a woman, who was obsessed with numbers. She wrote down numbers between zero and nine on small square pieces of paper each day by hand. By the time she died, she had written 70.000 numbers.</p>
+      <p>Her final will and testament stated that all of her numbers should be distributed among her 10 children. All of the zeroes she had written down should go to her first born child, all of her ones should go to her second born child, and so on.</p>
+      <p>The problem was that she hadn't really organized most of her numbers in neat piles. So, someone had to organize all of those numbers before they could be handed over to her children.</p>
+      <p>In this case, that someone is you.</p>
+      <input type="button" class="btn btn-primary" value="Let's get started!">
+    </section>
+
+    <section class="overlay-interface hidden">
+      <div class="progress">
+        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Downloading...</div>
+      </div>
+    </section>
+
+    <section class="main-interface">
+      <div class="main-top">
+        <div class="augusta-title">
+          <h2 class="bg-primary text-light px-2 py-1 rounded">AUGUSTA 1800</h2>
+        </div>
+        <div class="pending">
+          <div class="number-container"></div>
+        </div>
+      </div>
+
+      <div class="main-bottom">
+        <div class="button-top">
+          <div class="augusta-learn btn text-primary btn-light side-btn">
+            <i class="fa fa-graduation-cap fa-fw"></i>
+          </div>
+          <div class="augusta-button step-1">
+            <input type="button" value="Guess" class="btn btn-success">
+          </div>
+          <div class="augusta-reset btn text-primary btn-light side-btn">
+            <i class="fa fa-repeat fa-fw"></i>
+          </div>
+        </div>
+        <div class="button-bottom">
+          <div class="augusta-range">
+            <input type="range" id="augusta-range" value="1" min="1" max="10" step="1">
+            <label for="augusta-range" class="text-light"><span></span></label>
+          </div>
+        </div>
+
+        <div class="sort-container">
+          <div class="sorter rounded" data-sort-id="0">
+            <div class="number-container"></div>
+            <span class="sort-label">0</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="1">
+            <div class="number-container"></div>
+            <span class="sort-label">1</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="2">
+            <div class="number-container"></div>
+            <span class="sort-label">2</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="3">
+            <div class="number-container"></div>
+            <span class="sort-label">3</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="4">
+            <div class="number-container"></div>
+            <span class="sort-label">4</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="5">
+            <div class="number-container"></div>
+            <span class="sort-label">5</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="6">
+            <div class="number-container"></div>
+            <span class="sort-label">6</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="7">
+            <div class="number-container"></div>
+            <span class="sort-label">7</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="8">
+            <div class="number-container"></div>
+            <span class="sort-label">8</span>
+          </div>
+          <div class="sorter rounded" data-sort-id="9">
+            <div class="number-container"></div>
+            <span class="sort-label">9</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <aside class="chat-interface">
+      <div class="conversation-container">
+          <div class="chat-question-template chat-bubble"></div>
+          <div class="chat-answer-template chat-bubble"></div>
+          <div class="chat-dots-template chat-bubble chat-question">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+          </div>
+      </div>
+      <div class="answer-container">
+          <div id="first-answer" class="answer-option chat-bubble waiting-answer"></div>
+          <div id="second-answer" class="answer-option chat-bubble waiting-answer"></div>
+      </div>
+    </aside>
+
+    <section class="outro-overlay-interface full-overlay hidden">
+      <h2>This has been an Explorable Explanation<br>on Artificial Neural Networks</h2>
+      <p>Hopefully, you've learnt a thing or two about neural networks. We have only just scratched the surface here, and this has only been a simulation of a neural network. But if you only take one lesson from this explorable, it should be this: neural networks are about finding the right weights through trying and trying and trying again. It takes time, patience and computing power to find the exact right weight.</p>
+      <p>In actual neural networks, you also need to work with a bunch of other things that I unfortunately couldn't cover here. For instance, you need to make sure that your data is correct, preferably non-biased and that it is formatted in the right way. You need to work with more than one weight, sometimes up to thousands or even millions, making it very hard to understand where things go wrong. And you need to deal with the neural network's learning rate, which, depending on how low it is, increases accuracy, but decreases the speed it takes to find the proper weight.</p>
+      <p>Oh, and if you were wondering where the handwritten numbers came from, they actually come from a common dataset called MNIST, short for Modified National Institute of Standards and Technology. The name refers to the dataset being a modified version of an even larger set from NIST. It's generally used for benchmarking different neural networks.</p>
+      <p>There's one more thing for you here: a free-form version of Augusta called Augusta 2000, where you can just play around.</p>
+      <input type="button" class="btn btn-primary" value="I wanna meet Augusta 2000!">
+    </section>
+
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/node_modules/p5/lib/p5.min.js"></script>
+    <script type="text/javascript" src="/node_modules/seedrandom/seedrandom.min.js"></script>
+    <script type="text/javascript" src="/visualized/dist/js/utility.js"></script>
+    <script type="text/javascript" src="/visualized/dist/js/main.js"></script>
+    <script type="text/javascript" src="/visualized/dist/js/chat.js"></script>
+  </main>
+</body>
+</html>

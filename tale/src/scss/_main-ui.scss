@@ -1,0 +1,92 @@
+.main-interface {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+
+	margin: 1vh 0;
+	width: $mainWidth;
+}
+
+main > div {
+	align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.number-container {
+	left: #{-$imageWidth / 2};
+	position: relative;
+	top: #{-$imageWidth / 2};
+
+	.single-number {
+		display: none;
+		cursor: grab;
+		position: absolute;
+		transition: all 300ms ease-in-out;
+	}
+
+	@for $i from 0 through 2 {
+	  	.single-number:nth-last-child(#{$i + 1}) {
+	  		display: block;
+			left: $i * 5px;
+			top: $i * 5px;
+			z-index: $i;
+	  	}
+	}
+
+	img {
+		width: $imageWidth;
+	}
+}
+
+.main-top, .main-bottom {
+	align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.main-top {
+	height: calc(100vh - #{$sortHeight});
+}
+
+.main-bottom {
+	height: $sortHeight;
+}
+
+
+#app {
+	.augusta-title, .button-top, .button-bottom, .augusta-reset, .augusta-learn {
+		display: none;
+	}
+}
+
+#app {
+	&.show-augusta {
+		.augusta-title {
+			display: initial;
+		}
+
+		.button-top {
+			display: flex;
+		}
+
+		.augusta-reset {
+			display: inline-block;
+		}
+	}
+
+	&.show-range {
+		.button-bottom {
+			display: flex;
+		}
+	}
+
+	&.show-learning {
+		.augusta-learn {
+			display: inline-block;
+		}
+	}
+}
