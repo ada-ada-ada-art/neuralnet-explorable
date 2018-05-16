@@ -67,7 +67,7 @@ $(document).ready(function() {
 		console.log('FetchImgNames Error :-S', err);
 	});
 
-	$(window).keydown(function(e) {
+	/*$(window).keydown(function(e) {
 		var newSort = parseInt(e.originalEvent.key)
 		if(e.originalEvent.key === 'n') {
 			runCurrentTask();
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		if(e.originalEvent.key === 's') {
 			$('.intro-overlay-interface .btn').trigger('click');
 		}
-	})
+	})*/
 
 	$('.full-overlay .btn').click(function(e) {
 		if(!$(this).parent().hasClass('hidden')) {
