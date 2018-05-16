@@ -4,7 +4,7 @@
   "description": "Neural Network Explorable Explanation",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "jepster-dk",
   "license": "MIT",
