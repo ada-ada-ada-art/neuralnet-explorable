@@ -38,7 +38,7 @@ $(document).ready(function() {
 					{
 						'numberId' : i,
 						'src' : numSrc,
-						'path' : '/dist/img/test/' + i + '/' + numSrc,
+						'path' : '/tale/dist/img/test/' + i + '/' + numSrc,
 						'playerLabel' : -1,
 						'networkGuess' : -1
 					}
@@ -53,7 +53,7 @@ $(document).ready(function() {
 					{
 						'numberId' : i,
 						'src' : numSrc,
-						'path' : '/dist/img/training/' + i + '/' + numSrc,
+						'path' : '/tale/dist/img/training/' + i + '/' + numSrc,
 						'playerLabel' : -1,
 						'networkGuess' : -1
 					}
