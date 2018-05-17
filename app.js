@@ -36,20 +36,20 @@ app.get('/tale', function (req, res) {
 });
 app.use('/tale/dist', express.static(__dirname + '/tale/dist'));
 
-app.get('tale/getImgNames', function (req, res) {
+app.get('/tale/getImgNames', function (req, res) {
 	var imgNameArrays = [[], []];
 	for(var i = 0; i < 10; i++) {
 		imgNameArrays[0].push([]);
 		imgNameArrays[1].push([]);
 
-		var test = fs.readdirSync('/tale/dist/img/test/' + i);
+		var test = fs.readdirSync('./tale/dist/img/test/' + i);
 		test.forEach(file => {
 			if(file.includes('.png')) {
 				imgNameArrays[0][i].push(file);
 			}
 		});
 
-		var train = fs.readdirSync('/tale/dist/img/training/' + i);
+		var train = fs.readdirSync('./tale/dist/img/training/' + i);
 		train.forEach(file => {
 			if(file.includes('.png')) {
 				imgNameArrays[1][i].push(file);
