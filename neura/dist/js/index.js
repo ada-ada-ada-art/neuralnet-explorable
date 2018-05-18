@@ -23,12 +23,17 @@ var NeuraSketch = function(userSpecifiedOptions) {
 	this.thisSketch = function(s) {
 		s.sketchId = $('#' + options.sketchDOMId).data('sketchId');
 
+		s.inputRot = 1.5;
+		s.leftRot = 2;
+		s.rightRot = 2;
+		s.myRot = 0;
+		s.rotStep = 0.01;
+
 		s.beginPos;
 		s.dogPos;
 		s.rad = radius; // Circle radius
 
-		// The dog's path variables
-		s.dogM = 0, s.dogB = 0;
+		s.stepVec;
 
 		// Source for converting to p5 line(): 
 		// https://forum.processing.org/one/topic/how-do-you-draw-a-simple-line-with-user-inputed-slope-and-intercept.html
@@ -48,9 +53,6 @@ var NeuraSketch = function(userSpecifiedOptions) {
 		s.myPointTimer = 0;
 		s.myPointTimerLength = 50;
 
-		s.shouldTweakDirection = false;
-		s.lastTweakDirection = 0;
-
 		s.setup = function() {
 			s.createCanvas(640, 240);
 
@@ -60,45 +62,70 @@ var NeuraSketch = function(userSpecifiedOptions) {
 			s.strokeWeight(2);
 
 			// Init vectors
-			s.dogM = s.random(-1, 1);
-			s.dogB = s.random(0 + s.rad, s.height - s.rad);
-
-			s.beginPos = s.getDogVector(0);
+			s.beginPos = s.getPathVector(s.rad / 2);
 			s.dogPos = s.createVector(s.beginPos.x, s.beginPos.y);
+
+			s.stepVec = s.createVector(2, 0);
 
 			s.line1Pos = s.getPathVector(0);
 			s.line2Pos = s.getPathVector(s.width);
 		}
 
 		s.draw = function() {
-			s.background('#fff');
+			if(options.turnRateSelector) {
+				s.inputRot = parseFloat($(options.turnRateSelector).val());
+			}
 
-			s.stroke('#333');
-			s.strokeWeight(6);
+			s.background('#fff');
 
 			s.line(s.line1Pos.x, s.line1Pos.y, s.line2Pos.x, s.line2Pos.y);
 
+			s.rightRot = s.inputRot;
+			s.leftRot = s.inputRot * -1;
+
 			if(s.shouldRun) {
 				// Move the dog around when it's on the screen and shouldRun
-				if(!s.isCircleOutOfBounds(s.dogPos, s.rad)) {
-					s.dogPos.x += 2;
-					s.dogPos = s.getDogVector(s.dogPos.x);
+				if(s.dogPos.x < s.width + s.rad / 2) {
+					s.hit = s.collideLineCircle(s.line1Pos.x, s.line1Pos.y, s.line2Pos.x, s.line2Pos.y, s.dogPos.x, s.dogPos.y, s.rad);
+					s.dogPos.add(s.stepVec);
+
+					s.onWhatSideOfLine = s.isAboveLine(s.line1Pos, s.line2Pos, s.dogPos);
+					if(!s.hit && s.onWhatSideOfLine === 1) {
+						if(s.myRot < s.rightRot) {
+							s.myRot = s.lerp(s.myRot, s.rightRot, s.rotStep);
+						}
+					}
+					else if(!s.hit && s.onWhatSideOfLine === -1) {
+						if(s.myRot > s.leftRot) {
+							s.myRot = s.lerp(s.myRot, s.leftRot, s.rotStep);
+						}
+					}
+					else {
+						s.timeOnPath++;
+					}
 
 					s.pathDist += Math.abs(s.dogPos.y - s.getPathVector(s.dogPos.x).y);
+
+					s.dogPos.rotate(s.myRot);
 				}
 				// Reset the dog when off the screen
 				else {
-					s.toggleSimulation();
+					s.toggleSimulation(false);
 					s.resetSketch();
 
 					if(options.shouldRunInfinitely) {
+						console.log(s.pathDist + " | " + s.pathDistMax);
+						if(s.pathDist < s.pathDistMax) {
+
+						}
+
 						if(options.infiniteCallback) {
 							if(options.infiniteCallback.params) {
 								options.infiniteCallback.func.apply(options.infiniteCallback, options.infiniteCallback.params);
 							}
 						}
 
-						s.toggleSimulation();
+						s.toggleSimulation(true);
 					}
 				}
 
@@ -113,14 +140,22 @@ var NeuraSketch = function(userSpecifiedOptions) {
 			}
 
 			s.noFill();
-			s.strokeWeight(2);
+			s.stroke(51, 100);
 			for(let i = 0; i < s.myPoints.length; i++) {
 				s.point(s.myPoints[i].x, s.myPoints[i].y);
 			}
-			s.fill('#333');
-			s.stroke('#555');
+			s.fill(255);
+			s.stroke(51);
 			// Draw the dog
 			s.ellipse(s.dogPos.x, s.dogPos.y, s.rad, s.rad);
+
+			// Calculate direction line vectors
+			s.tempPos = p5.Vector.add(s.dogPos, s.stepVec);
+			s.tempPos.rotate(s.myRot);
+			s.direction = p5.Vector.sub(s.tempPos, s.dogPos);
+			s.direction.normalize();
+			// Draw the direction line
+			s.line(s.dogPos.x + (s.direction.x * (s.rad * 0.5)), s.dogPos.y + (s.direction.y * (s.rad * 0.5)), s.dogPos.x + (s.direction.x * (s.rad * 1)), s.dogPos.y + (s.direction.y * (s.rad * 1)));
 
 			s.updateScore();
 		}
@@ -130,21 +165,6 @@ var NeuraSketch = function(userSpecifiedOptions) {
 			var desiredY = s.map(thisY, s.height, 0, 0, s.height);
 			var thisVector = s.createVector(desiredX, desiredY);
 			return thisVector;
-		}
-
-		s.getDogVector = function(desiredX) {
-			var thisY = s.dogM * desiredX + s.dogB;
-			var desiredY = s.map(thisY, s.height, 0, 0, s.height);
-			var thisVector = s.createVector(desiredX, desiredY);
-			return thisVector;
-		}
-
-		s.isCircleOutOfBounds = function(dogVector, radius) {
-			var halfRad = radius / 2;
-
-			var isOOB = (dogVector.x - halfRad > s.width || dogVector.x + halfRad < 0);
-			isOOB = isOOB || (dogVector.y - halfRad > s.height || dogVector.y + halfRad < 0);
-			return isOOB;
 		}
 
 		s.toggleSimulation = function(newState) {
@@ -166,20 +186,32 @@ var NeuraSketch = function(userSpecifiedOptions) {
 			}
 			else {
 				s.resetSketch();
-				// Only update high score if toggle was not manual
-				if(newState === undefined) {
-					s.checkHighScore();
-				}
+				s.checkHighScore();
 				playBtnElem.text('Release Neura');
 			}
 		}
 
-		s.resetSketch = function() {
-			s.dogM = s.random(-1, 1);
-			s.dogB = s.random(0 + s.rad, s.height - s.rad);
+		// Source: https://stackoverflow.com/questions/3838319/how-can-i-check-if-a-point-is-below-a-line-or-not
+		s.isAboveLine = function(line1, line2, pointVec) {
+			var v1 = s.createVector(line2.x - line1.x, line2.y - line1.y);
+			var v2 = s.createVector(pointVec.x - line1.x, pointVec.y - line1.y);
+			var crossProd = v1.x * v2.y - v1.y * v2.x;
 
+			if(crossProd > 0) {
+			    return -1;
+			}
+			else if(crossProd < 0) {
+			    return 1;
+			}
+			else {
+			    return 0;
+			}
+		}
+
+		s.resetSketch = function() {
 			s.dogPos.x = s.beginPos.x;
-			s.dogPos.y = s.getDogVector(s.beginPos.x).y;
+			s.dogPos.y = s.beginPos.y;
+			s.myRot = 0;
 		}
 
 		s.updateScore = function() {
@@ -192,7 +224,6 @@ var NeuraSketch = function(userSpecifiedOptions) {
 			if(s.pathDist < s.pathDistMax || s.pathDistMax === undefined) {
 				s.pathDistMax = s.pathDist;
 				scoreElem.find('.highscore-container span').text(s.pathDist.toFixed(2));
-				s.shouldTweakDirection = true;
 			}
 		}
 	};
@@ -273,17 +304,11 @@ $(document).ready(function() {
 	$('.play-sketch').click(function(e) {
 		e.preventDefault();
 		var thisSketchId = $(this).siblings('.sketch-container').data('sketch-id');
-		var thisSketchP5 = neuraSketches[thisSketchId].thisP5;
-		if(thisSketchP5.shouldRun) {
-			neuraSketches[thisSketchId].thisP5.toggleSimulation(false);
-		}
-		else {
-			neuraSketches[thisSketchId].thisP5.toggleSimulation();
-		}
+		neuraSketches[thisSketchId].thisP5.toggleSimulation();
 	});
 
 	$('input[type="range"]').change(function(e) {
-		var thisSketchId = $(this).parent().siblings('.sketch-container').data('sketch-id');
+		var thisSketchId = $(this).siblings('.sketch-container').data('sketch-id');
 		neuraSketches[thisSketchId].thisP5.toggleSimulation(false);
 	});
 
@@ -298,9 +323,6 @@ function updateDOM() {
 }
 
 function randomizeTurningAngle(...args) {
-	var thisSketchId = $('section.active .sketch-container').data('sketch-id');
-	var thisSketchP5 = neuraSketches[thisSketchId].thisP5;
-
 	if(args) {
 		var inputSelector = args[0];
 		var tweakAngle = 0.01;
@@ -312,25 +334,14 @@ function randomizeTurningAngle(...args) {
 			tweakAngle = 0.01;
 		}
 		var currAngle = parseFloat($(inputSelector).val());
-		var tweakDirection = 1;
 
-		if(thisSketchP5.shouldTweakDirection && thisSketchP5.lastTweakDirection !== 0) {
-			$('.moving').text(tweakDirection);
-			thisSketchP5.shouldTweakDirection = false;
-			tweakDirection = thisSketchP5.lastTweakDirection;
+		var dice = Math.random();
+		if(dice > 0.5) {
+			currAngle += tweakAngle;
 		}
-		else {
-			var dice = Math.random();
-			if(dice > 0.5) {
-				tweakDirection = 1;
-			}
-			else if(dice <= 0.5) {
-				tweakDirection = -1;
-			}
+		else if(dice <= 0.5) {
+			currAngle -= tweakAngle;
 		}
-		currAngle += (tweakAngle * tweakDirection);
-		thisSketchP5.lastTweakDirection = tweakDirection;
-
 		$(inputSelector).val(currAngle.toFixed(4));
 	}
 	else {
