@@ -5,16 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Explorable Explanation of Neural Networks</title>
   <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!-- STYLE -->
+  <link rel="stylesheet" type="text/css" href="/public/style.css">
+  <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/public/intro.js"></script>
 </head>
-<body>
-  <main class="text-center">
-    <h2>Neural Network Explorable Explanations</h2>
-    <p>This is the index for the three iterations of<br/>the Neural Network Explorable Explanation project by Jesper Hyldahl Fogh.</p>
-    <p>Click the links below to experience the three iterations.</p>
-    <p><a href="/visualized">A Visualized Network</a></p>
-    <p><a href="/neura">The World's Dumbest Dog</a></p>
-    <p><a href="/tale">A Tale of 70.000 Numbers</a></p>
+<body class="container">
+  <main class="text-center col-12 mx-auto">
+    <h2 class="my-4 text-warning">Neural Network Explorable Explanations</h2>
+    <p>This is the index for the three iterations of<br/>the Neural Network Explorable Explanation project by <a href="http://jepster.dk" class="text-warning">Jesper Hyldahl Fogh</a>.</p>
+    <p class="border-bottom pb-3 border-warning">Click the titles below to read a short intro to each iteration, and to show the link to the prototypes.<br>
+    The prototypes are best experienced in either Firefox or Google Chrome.</p>
+  
+    <div class="row text-left">
+      <div class="mb-4 col-4 border-right border-warning">
+        <h4 class="text-warning">The Visualized Network</h4>
+        <p>This prototype does not represent a finished explorable explanation.<br>It is more exploratory work than a complete experience.</p>
+        <a href="/visualized"><button class="btn btn-warning">Try the prototype</button></a>
+      </div>
+
+      <div class="mb-4 col-4 border-right border-warning">
+        <h4 class="text-warning">The World's Dumbest Dog</h4>
+        <p>The version being linked to here is not the latest version, <br>which was inspired by Daniel Shiffman's tutorial.<br>
+        That version only came halfway towards being fully implemented<br> before I moved on to the third iteration.<br>
+        This version instead represents the most complete of the versions of this iteration. However this one was still not a complete experience.</p>
+        <a href="/neura"><button class="btn btn-warning">Try the prototype</button></a>
+      </div>
+
+      <div class="mb-4 col-4">
+        <h4 class="text-warning">A Tale of 70.000 Numbers</h4>
+        <p>This is the final version of the final iteration. It constitutes an entire explorable explanation.</p>
+        <a href="/tale"><button class="btn btn-warning">Try the prototype</button></a>
+      </div>
+    </div>
   </main>
 </body>
 </html>

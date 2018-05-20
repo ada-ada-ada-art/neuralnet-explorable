@@ -178,9 +178,10 @@ function initNumberListeners() {
 	
 	$('.single-number').on('dragstart', dragstart);
 
-	$('.single-number').on('click', function(e) {
+	$('body').on('click', '.single-number', function(e) {
 		var firstInLine = $(this).siblings('.single-number').first();
 		$(this).insertBefore(firstInLine);
+		console.log($(this));
 	})
 }
 
@@ -209,7 +210,7 @@ function pendingSortDrop(e) {
 
 	var newCont = $(this).find('.number-container');
 	if(newCont.parent().hasClass('sorter')) {
-		if(isSorterFilled()) {
+		if(isSorterFilled() && $('#app').data('currentStep') === -1) {
 			runCurrentTask();
 		}
 	}
@@ -537,8 +538,7 @@ function learnMagicNumber() {
 
 function fetchImgNames() {
 	return new Promise(function(resolve, reject) {
-		console.log(window.location + '/getImgNames');
-		fetch(window.location + '/getImgNames').then(function(response) {
+		fetch('/tale/getImgNames').then(function(response) {
 			if (response.status !== 200) {
 				console.log('Looks like there was a problem. Status Code: ' + response.status);
 				return;

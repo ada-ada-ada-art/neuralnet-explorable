@@ -12,7 +12,7 @@ var sectionConversations = [
 	    "second_answer": "Do I have a choice?"
 	},
 	{
-	    "phrase": "Okay, let's start identifying some of these numbers. I'll send you ten at a time, and you sort them into the piles.",
+	    "phrase": "Okay, let's start identifying some of these numbers. I'll send you ten at a time, and you sort them into the piles. You can look through the number piles by clicking on them.",
 	    "first_answer": "Ok, J.",
 	    "second_answer": "Ten at a time, got it."
 	},
@@ -37,7 +37,7 @@ var sectionConversations = [
 	    "second_answer": "Uhm, are you sure it's safe?"
 	},
 	{
-		"phrase": "If you give it a number, it will make a guess at what that number is. I'll try uploading it to your window.",
+		"phrase": "If you show it a picture of number, it will try to guess what that number is. I'll try uploading it to your window.",
 		"first_answer": "Sure thing!",
 		"second_answer": "Hmm... Okay then."
 	},
@@ -114,7 +114,7 @@ var sectionConversations = [
 	{
 	    "phrase": "Lucky for us, I can actually get Augusta to help us find the weight. If we teach her how gradient descent works, she can learn what the correct weight is by herself. I'll upload a fix to you in a sec.",
 	    "first_answer": "Go for it!",
-	    "second_answer": "Jeez, J, you're such a 🤓."
+	    "second_answer": "Neato."
 	},
 	{
 	    "phrase": "Oh, I've just found 500 numbers lying around the old lady's place that were already sorted! I'll just send those over, so Augusta can use them to learn the weight.",
@@ -170,7 +170,7 @@ var sectionConversations = [
 
 var haveRemindedOfMagic = false;
 var findMagicNumberConv = {
-    "phrase": "You're getting closer, I think. Be sure to use Gradient Descent to figure out whether to increase or decrease the weight. You can sort through the number piles by clicking on them.",
+    "phrase": "You're getting closer, I think. Be sure to use Gradient Descent to figure out whether to increase or decrease the weight.",
     "first_answer": "",
     "second_answer": ""
 }
@@ -358,6 +358,8 @@ function addImagesTask() {
 		disableAnswers();
 		addImagesToPending(10);
 		currentTask = resolve;
+		$('#app').addClass('first-images');
+		$('#app').data('currentStep', -1);
 	});
 }
 
@@ -372,6 +374,7 @@ function uploadAugustaTask() {
 				$('#app').addClass('show-augusta');
 				$('#app').data('currentStep', 0);
 				$('.overlay-interface .progress-bar').css('width', '0%');
+				$('.btn').css('pointer-events', 'none').addClass('disabled');
 				updateGuessListeners();
 				resolve();
 			}, progressTimer)
@@ -382,6 +385,7 @@ function uploadAugustaTask() {
 
 function resetImagesTask() {
 	return new Promise(function(resolve) {
+		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
 		disableAnswers();
 		currentTask = resolve;
 	});

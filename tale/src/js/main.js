@@ -178,9 +178,10 @@ function initNumberListeners() {
 	
 	$('.single-number').on('dragstart', dragstart);
 
-	$('.single-number').on('click', function(e) {
+	$('body').on('click', '.single-number', function(e) {
 		var firstInLine = $(this).siblings('.single-number').first();
 		$(this).insertBefore(firstInLine);
+		console.log($(this));
 	})
 }
 
@@ -209,7 +210,7 @@ function pendingSortDrop(e) {
 
 	var newCont = $(this).find('.number-container');
 	if(newCont.parent().hasClass('sorter')) {
-		if(isSorterFilled()) {
+		if(isSorterFilled() && $('#app').data('currentStep') === -1) {
 			runCurrentTask();
 		}
 	}
