@@ -118,8 +118,7 @@ $(document).ready(function() {
 
 				if(!$('#app').hasClass('is-learning')) {
 					$('#app').addClass('is-learning');
-					$('#augusta-range').prop('disabled', true);
-					$('.btn').css('pointer-events', 'none').addClass('disabled');
+					enableGUI(false);
 					$('.augusta-learn i').addClass('fa-spin');
 				}
 
@@ -136,8 +135,7 @@ $(document).ready(function() {
 						calculateAugustaOffset();
 
 						$('#app').removeClass('is-learning');
-						$('#augusta-range').prop('disabled', false);
-						$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+						enableGUI(true);
 						$('.augusta-learn i').removeClass('fa-spin');
 
 						runCurrentTask();
@@ -163,6 +161,16 @@ function updateGUI() {
 			$(this).text(myVal);
 		}
 	});
+}
+
+function enableGUI(shouldEnable) {
+	$('#augusta-range').prop('disabled', !shouldEnable);
+	if(shouldEnable) {
+		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+	}
+	else {
+		$('.btn').css('pointer-events', 'none').addClass('disabled');
+	}
 }
 
 function initNumberListeners() {
@@ -282,16 +290,18 @@ function updateGuessListeners() {
 
 	$('.augusta-button.step-1 .btn').on('click', function() {
 		// Move the numbers about randomly
-		$('.pending .single-number').each(function() {
-			var rnd = getRandom(0, 9);
-			$(this).detach().prependTo($('.sorter .number-container')[rnd]);
-		})
+		if(!isPendingEmpty()) {
+			$('.pending .single-number').each(function() {
+				var rnd = getRandom(0, 9);
+				$(this).detach().prependTo($('.sorter .number-container')[rnd]);
+			})
 
-		if(isSorterFilled()) {
-			augustaOffset = 0;
-			calculateAugustaOffset();
-			replaceSectionPhrase(8, /\$\$\$/, augustaOffset);
-			runCurrentTask();
+			if(isSorterFilled()) {
+				augustaOffset = 0;
+				calculateAugustaOffset();
+				replaceSectionPhrase(8, /\$\$\$/, augustaOffset);
+				runCurrentTask();
+			}
 		}
 	});
 
@@ -334,6 +344,8 @@ function updateGuessListeners() {
 				}
 				replaceSectionPhrase(13, /\$asBadAs/, chosenChat);
 
+				enableGUI(false);
+
 				runCurrentTask();
 			}, 500);
 		}
@@ -347,7 +359,7 @@ function updateGuessListeners() {
 			augustaOffset = 0;
 			calculateAugustaOffset();
 
-			if(augustaOffset !== 0 && !haveRemindedOfMagic) {
+			if(augustaOffset !== 0) {
 				var increase = ["increase", "decrease"];
 				var chosenChat = "";
 				if(guessMagic < trueMagic) {
@@ -356,8 +368,12 @@ function updateGuessListeners() {
 				else {
 					chosenChat = increase[1];
 				}
+				// Make copy of JSON
 				var thisConv = JSON.parse(JSON.stringify(findMagicNumberConv));
 				thisConv = replaceThisPhrase(thisConv, /\$increase/, chosenChat);
+				if(haveRemindedOfMagic) {
+					thisConv.phrase = findMagicOpts[getRandom(0, findMagicOpts.length)];
+				}
 				insertQuestion(thisConv);
 				haveRemindedOfMagic = true;
 			}

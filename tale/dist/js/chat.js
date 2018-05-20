@@ -37,7 +37,7 @@ var sectionConversations = [
 	    "second_answer": "Uhm, are you sure it's safe?"
 	},
 	{
-		"phrase": "If you show it a picture of number, it will try to guess what that number is. I'll try uploading it to your window.",
+		"phrase": "If you show it a picture of a number, it will try to guess what that number is. I'll try uploading it to your window.",
 		"first_answer": "Sure thing!",
 		"second_answer": "Hmm... Okay then."
 	},
@@ -169,6 +169,11 @@ var sectionConversations = [
 ];
 
 var haveRemindedOfMagic = false;
+var findMagicOpts = [
+	"Keep trying!",
+	"The correct weight is within reach, I just know it!",
+	"Hmmm... Not that one, it seems. Keep working on it!"
+]
 var findMagicNumberConv = {
     "phrase": "You're getting closer, I think. Be sure to use Gradient Descent to figure out whether to increase or decrease the weight.",
     "first_answer": "",
@@ -186,7 +191,7 @@ var sectionStops = [
 	},
 	{
 		'stopIndex' : 7,
-		'task' : resetImagesTask
+		'task' : earlyResetImagesTask
 	},
 	{
 		'stopIndex' : 11,
@@ -202,7 +207,7 @@ var sectionStops = [
 	},
 	{
 		'stopIndex' : 16,
-		'task' : resetImagesTask
+		'task' : lateResetImagesTask
 	},
 	{
 		'stopIndex' : 18,
@@ -374,7 +379,7 @@ function uploadAugustaTask() {
 				$('#app').addClass('show-augusta');
 				$('#app').data('currentStep', 0);
 				$('.overlay-interface .progress-bar').css('width', '0%');
-				$('.btn').css('pointer-events', 'none').addClass('disabled');
+				enableGUI(false);
 				updateGuessListeners();
 				resolve();
 			}, progressTimer)
@@ -383,9 +388,16 @@ function uploadAugustaTask() {
 	});
 }
 
-function resetImagesTask() {
+function earlyResetImagesTask() {
 	return new Promise(function(resolve) {
-		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+		enableGUI(true);
+		disableAnswers();
+		currentTask = resolve;
+	});
+}
+
+function lateResetImagesTask() {
+	return new Promise(function(resolve) {
 		disableAnswers();
 		currentTask = resolve;
 	});
@@ -400,7 +412,7 @@ function showAugustaRangeTask() {
 				$('#app').addClass('show-range');
 				$('.overlay-interface').addClass('hidden');
 				$('.overlay-interface .progress-bar').css('width', '0%');
-				$('.btn').css('pointer-events', 'none').addClass('disabled');
+				enableGUI(false);
 				updateGuessListeners();
 				resolve();
 			}, progressTimer)
@@ -410,8 +422,7 @@ function showAugustaRangeTask() {
 
 function activateAugustaRangeTask() {
 	return new Promise(function(resolve) {
-		$('#augusta-range').prop('disabled', false);
-		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+		enableGUI(true);
 		$('.augusta-button').addClass('step-2').removeClass('step-1');
 		$('#app').data('currentStep', 2);
 		updateGuessListeners();
@@ -428,6 +439,8 @@ function updateOffsetTextTask() {
 	var below = ["above", "below"];
 	var toobig = ["increased", "decreased"];
 	var increase = ["increase", "decrease"];
+
+	enableGUI(true);
 
 	var chosenWords = [];
 
@@ -485,7 +498,7 @@ function sendFoundLabelledImagesTask() {
 
 		$('.overlay-interface').removeClass('hidden');
 		$('.progress-bar').text('Receiving images...');
-		$('.btn').css('pointer-events', 'none').addClass('disabled');
+		enableGUI(false);
 		foundLabelsTimer = setInterval(function() {
 			if(foundLabelsCount < 500) {
 				addImagesToPending(20);
@@ -509,7 +522,7 @@ function awaitMultipleImagesTask() {
 		disableAnswers();
 
 		$('.augusta-button').addClass('step-5').removeClass('step-4');
-		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+		enableGUI(true);
 		updateGuessListeners();
 
 		currentTask = resolve;
@@ -526,7 +539,7 @@ function testSelfLearningTask() {
 		disableAnswers();
 
 		$('.augusta-button').addClass('step-6').removeClass('step-5');
-		$('.augusta-learn, .augusta-reset').css('pointer-events', 'none').addClass('disabled');
+		enableGUI(true);
 		updateGuessListeners();
 
 		currentTask = resolve;
@@ -554,7 +567,7 @@ function showOutro() {
 
 function finishOff() {
 	return new Promise(function(resolve) {
-		$('.btn').css('pointer-events', 'auto').removeClass('disabled');
+		enableGUI(true);
 		disableAnswers();
 		resolve();
 	});
